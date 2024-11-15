@@ -1,0 +1,71 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+@model IEnumerable<EF_DBFirst.Models.SinhVien>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Danh Sách Sinh Viên</title>
+    <link rel="stylesheet" href="~/css/style.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Quản lý Sinh Viên</h1>
+
+        <!-- Thông báo thành công/thất bại -->
+        @if (TempData["SuccessMessage"] != null)
+        {
+            <div class="alert alert-success">
+                @TempData["SuccessMessage"]
+            </div>
+        }
+        @if (TempData["ErrorMessage"] != null)
+        {
+            <div class="alert alert-danger">
+                @TempData["ErrorMessage"]
+            </div>
+        }
+
+        <table class="student-table">
+            <thead>
+                <tr>
+                    <th>Tên</th>
+                    <th>MSSV</th>
+                    <th>Khoa</th>
+                    <th>Hành động</th>
+                </tr>
+            </thead>
+            <tbody>
+                @foreach (var item in Model)
+                {
+                    <tr>
+                        <td>@item.Ten</td>
+                        <td>@item.Mssv</td>
+                        <td>@item.Khoa</td>
+                        <td>
+                            <!-- Form Sửa -->
+                            <form asp-action="Edit" method="get" style="display:inline;">
+                                <input type="hidden" name="id" value="@item.Mssv" />
+                                <button type="submit" class="btn btn-warning">Sửa</button>
+                            </form>
+
+                            <!-- Form Xóa -->
+                            <form asp-action="Delete" method="post" style="display:inline;">
+                                <input type="hidden" name="id" value="@item.Mssv" />
+                                <button type="submit" class="btn btn-danger" onclick="return confirm('Bạn có chắc muốn xóa sinh viên này?');">Xóa</button>
+                            </form>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+
+        <!-- Form Thêm Sinh Viên -->
+        <form asp-action="Create" method="get" style="margin-top: 20px;">
+            <button type="submit" class="btn btn-primary">Thêm Sinh Viên</button>
+        </form>
+    </div>
+</body>
+</html>

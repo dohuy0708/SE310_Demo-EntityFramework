@@ -1,0 +1,25 @@
+﻿@model EF_DBFirst.Models.SinhVien
+
+<h2>Xóa Sinh Viên</h2>
+
+<div>
+    <h4>Bạn có chắc muốn xóa sinh viên này không?</h4>
+    <div>
+        <label>MSSV:</label>
+        <span>@Model.Mssv</span>
+    </div>
+    <div>
+        <label>Tên:</label>
+        <span>@Model.Ten</span>
+    </div>
+    <div>
+        <label>Khoa:</label>
+        <span>@Model.Khoa</span>
+    </div>
+</div>
+
+<form asp-action="DeleteConfirmed" method="post">
+    <input type="hidden" asp-for="Mssv" />
+    <button type="submit" class="btn btn-danger">Xóa</button>
+    <a asp-action="Index" class="btn btn-secondary">Hủy</a>
+</form>
